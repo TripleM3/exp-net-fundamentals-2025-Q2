@@ -1,0 +1,526 @@
+---
+Metadata:
+  AWSToolsMetrics:
+    IaC_Generator: "arn:aws:cloudformation:us-east-2:210161286115:generatedTemplate/a5e130b8-f1f0-46cd-af70-aa6d83d8fcbc"
+Resources:
+  EC2Subnet:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPCTd"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az3"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.32.0/20"
+      Ipv6Native: false
+      Tags: []
+  EC2SecurityGroup:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "default VPC security group"
+      GroupName: "default"
+      VpcId:
+        Ref: "EC2VPCTd"
+      SecurityGroupIngress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        SourceSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2VPCTd"
+          - "DefaultSecurityGroup"
+        ToPort: -1
+        SourceSecurityGroupOwnerId: "210161286115"
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2KeyPairNetfunbootcamppem:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::KeyPair"
+    DeletionPolicy: "Retain"
+    Properties:
+      KeyName: "net+fun+bootcamp-pem"
+      KeyType: "rsa"
+      PublicKeyMaterial: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFq7PgAJg1qYCVu4uUn6FCn/rwMNoquqPX/KvpkCFZg+vfyjPD9etiT8+HBNA3BF/9MD4djK5TAZeiFM4SRs7YADtnIZ4qzivKoNAFGpzBxVo8o6bot3vBHTLbNRPmkuR0x74XfYcGltLiSDDM2J16XapmmIhO9n9pisFVIoHokw8FsARA8FVvcYx6855eO9LHYbI7PHOai4S3DShEDxDTbVIbw5dCdTvW2AZRl1DZ6hgmIEZnzmK+dUof+vo8kB5OBKZL1+f20qMrLHvxkQqkXuXUqGD+nDRaOmhP8ljapJ9My0MZ4pMx1hlbjpQZK2OqEIyD+/qRwQtZIAHUq7dj\
+        \ net+fun+bootcamp-pem\n"
+      Tags: []
+  EC2EIP1821612790:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::EIP"
+    DeletionPolicy: "Retain"
+    Properties:
+      PublicIpv4Pool: "amazon"
+      Domain: "vpc"
+      InstanceId: "i-0b8b9d1760c4f8f8a"
+      Tags: []
+      NetworkBorderGroup: "us-east-2"
+  EC2NetworkInterfaceKK:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Retain"
+    Properties:
+      Description: "windows-server-private-nic"
+      PrivateIpAddress: "10.192.64.139"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "10.192.64.139"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-0cdb8f005f5fcda9a"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2SubnetBv"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+  EC2SecurityGroupJY:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "launch-wizard-1 created 2025-06-06T21:35:47.563Z"
+      GroupName: "allow-login"
+      VpcId:
+        Ref: "EC2VPC"
+      SecurityGroupIngress:
+      - CidrIp:
+          Fn::GetAtt:
+          - "EC2VPC"
+          - "CidrBlock"
+        IpProtocol: "-1"
+        Description: "Internal Traffic"
+        FromPort: -1
+        ToPort: -1
+      - CidrIp: "69.255.21.120/32"
+        IpProtocol: "tcp"
+        Description: "SSH for IT Ops"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "69.255.21.120/32"
+        IpProtocol: "tcp"
+        Description: "RDP for IT Ops"
+        FromPort: 3389
+        ToPort: 3389
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2NetworkInterfaceUQ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Retain"
+    Properties:
+      Description: ""
+      PrivateIpAddress: "10.192.64.13"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "10.192.64.13"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-0cdb8f005f5fcda9a"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2SubnetDH"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+      PublicIpDnsNameOptions:
+        DnsHostnameType: "public-ipv4-dns-name"
+        PublicIpv4DnsName: "ec2-18-216-127-90.us-east-2.compute.amazonaws.com"
+  EC2SecurityGroupAw:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "default VPC security group"
+      GroupName: "default"
+      VpcId:
+        Ref: "EC2VPC"
+      SecurityGroupIngress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        SourceSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2VPC"
+          - "DefaultSecurityGroup"
+        ToPort: -1
+        SourceSecurityGroupOwnerId: "210161286115"
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2NetworkInterfaceL3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Retain"
+    Properties:
+      Description: ""
+      PrivateIpAddress: "10.192.64.4"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "10.192.64.4"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-0cdb8f005f5fcda9a"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2SubnetDH"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+      PublicIpDnsNameOptions:
+        DnsHostnameType: "public-ipv4-dns-name"
+        PublicIpv4DnsName: "ec2-3-12-135-99.us-east-2.compute.amazonaws.com"
+  EC2Instance:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Instance"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tenancy: "default"
+      SecurityGroups:
+      - "allow-login"
+      PrivateIpAddress: "10.192.64.13"
+      InstanceInitiatedShutdownBehavior: "stop"
+      CpuOptions:
+        ThreadsPerCore: 2
+        CoreCount: 1
+      BlockDeviceMappings:
+      - Ebs:
+          SnapshotId: "snap-0aacd5a1a8ee9c9a0"
+          VolumeType: "gp3"
+          Iops: 3000
+          VolumeSize: 30
+          Encrypted: false
+          DeleteOnTermination: true
+        DeviceName: "/dev/sda1"
+      AvailabilityZone: "us-east-2a"
+      PrivateDnsNameOptions:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      SubnetId:
+        Ref: "EC2SubnetDH"
+      SecurityGroupIds:
+      - "sg-0cdb8f005f5fcda9a"
+      EbsOptimized: true
+      DisableApiTermination: false
+      KeyName: "net+fun+bootcamp-pem"
+      SourceDestCheck: true
+      Volumes:
+      - VolumeId: "vol-0857a373916b85ef1"
+        Device: "/dev/sda1"
+      PlacementGroupName: ""
+      VpcId: "vpc-05ed881e41fd62d0c"
+      State:
+        Code: "80"
+        Name: "stopped"
+      NetworkInterfaces:
+      - Description: "windows-server-private-nic"
+        PrivateIpAddresses:
+        - PrivateIpAddress: "10.192.64.139"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "1"
+        GroupSet:
+        - Ref: "EC2SecurityGroupJY"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2SubnetBv"
+        AssociatePublicIpAddress: false
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterfaceKK"
+        DeleteOnTermination: false
+      - PrivateIpAddresses:
+        - PrivateIpAddress: "10.192.64.13"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "0"
+        GroupSet:
+        - Ref: "EC2SecurityGroupJY"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2SubnetDH"
+        AssociatePublicIpAddress: true
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterfaceUQ"
+        DeleteOnTermination: true
+      ImageId: "ami-070f90bab72874c6f"
+      InstanceType: "t3.large"
+      Monitoring: false
+      Tags: []
+      CreditSpecification:
+        CPUCredits: "unlimited"
+  EC2VPCTd:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPC"
+    DeletionPolicy: "Retain"
+    Properties:
+      CidrBlock: "172.31.0.0/16"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags: []
+  EC2Volume:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Volume"
+    DeletionPolicy: "Retain"
+    Properties:
+      MultiAttachEnabled: false
+      SnapshotId: "snap-0aacd5a1a8ee9c9a0"
+      VolumeType: "gp3"
+      Encrypted: false
+      Size: 30
+      AutoEnableIO: true
+      AvailabilityZone: "us-east-2a"
+      Throughput: 125
+      Iops: 3000
+      Tags: []
+  EC2SubnetBv:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC"
+      MapPublicIpOnLaunch: false
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az1"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "10.192.64.128/28"
+      Ipv6Native: false
+      Tags:
+      - Value: "net+fun+bootcamp-subnet-private1-us-east-2a"
+        Key: "Name"
+  EC2DHCPOptions:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::DHCPOptions"
+    DeletionPolicy: "Retain"
+    Properties:
+      DomainName: "us-east-2.compute.internal"
+      DomainNameServers:
+      - "AmazonProvidedDNS"
+      Tags: []
+  EC2InternetGatewayYt:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::InternetGateway"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tags: []
+  EC2NetworkAclVp:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkAcl"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPCTd"
+      Tags: []
+  EC2EIP31213599:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::EIP"
+    DeletionPolicy: "Retain"
+    Properties:
+      PublicIpv4Pool: "amazon"
+      Domain: "vpc"
+      InstanceId: "i-0d181c3cb2bc23469"
+      Tags: []
+      NetworkBorderGroup: "us-east-2"
+  EC2VPC:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPC"
+    DeletionPolicy: "Retain"
+    Properties:
+      CidrBlock: "10.192.64.0/24"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags:
+      - Value: "net+fun+bootcamp-vpc"
+        Key: "Name"
+  EC2NetworkInterface:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Retain"
+    Properties:
+      Description: "ubuntu-server-private-nic"
+      PrivateIpAddress: "10.192.64.137"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "10.192.64.137"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-0cdb8f005f5fcda9a"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2SubnetBv"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+  EC2InstanceET:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Instance"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tenancy: "default"
+      SecurityGroups:
+      - "allow-login"
+      PrivateIpAddress: "10.192.64.4"
+      InstanceInitiatedShutdownBehavior: "stop"
+      CpuOptions:
+        ThreadsPerCore: 1
+        CoreCount: 1
+      BlockDeviceMappings:
+      - Ebs:
+          SnapshotId: "snap-0e713e773f229e0a3"
+          VolumeType: "gp3"
+          Iops: 3000
+          VolumeSize: 16
+          Encrypted: false
+          DeleteOnTermination: true
+        DeviceName: "/dev/sda1"
+      AvailabilityZone: "us-east-2a"
+      PrivateDnsNameOptions:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      SubnetId:
+        Ref: "EC2SubnetDH"
+      SecurityGroupIds:
+      - "sg-0cdb8f005f5fcda9a"
+      EbsOptimized: false
+      DisableApiTermination: false
+      KeyName: "net-fun-bootcamp-ppk"
+      SourceDestCheck: true
+      Volumes:
+      - VolumeId: "vol-09d45657e8589d9bf"
+        Device: "/dev/sda1"
+      PlacementGroupName: ""
+      VpcId: "vpc-05ed881e41fd62d0c"
+      State:
+        Code: "80"
+        Name: "stopped"
+      NetworkInterfaces:
+      - PrivateIpAddresses:
+        - PrivateIpAddress: "10.192.64.4"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "0"
+        GroupSet:
+        - Ref: "EC2SecurityGroupJY"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2SubnetDH"
+        AssociatePublicIpAddress: true
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterfaceL3"
+        DeleteOnTermination: true
+      - Description: "ubuntu-server-private-nic"
+        PrivateIpAddresses:
+        - PrivateIpAddress: "10.192.64.137"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "1"
+        GroupSet:
+        - Ref: "EC2SecurityGroupJY"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2SubnetBv"
+        AssociatePublicIpAddress: false
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterface"
+        DeleteOnTermination: false
+      ImageId: "ami-004364947f82c87a0"
+      InstanceType: "t2.micro"
+      Monitoring: false
+      Tags:
+      - Value: "ubuntu test server"
+        Key: "Name"
+      CreditSpecification:
+        CPUCredits: "standard"
+  EC2InternetGateway:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::InternetGateway"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tags:
+      - Value: "net+fun+bootcamp-igw"
+        Key: "Name"
+  EC2SubnetDH:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC"
+      MapPublicIpOnLaunch: false
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az1"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "10.192.64.0/28"
+      Ipv6Native: false
+      Tags:
+      - Value: "net+fun+bootcamp-subnet-public1-us-east-2a"
+        Key: "Name"
+  EC2KeyPairNetfunbootcampppk:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::KeyPair"
+    DeletionPolicy: "Retain"
+    Properties:
+      KeyName: "net-fun-bootcamp-ppk"
+      KeyType: "rsa"
+      PublicKeyMaterial: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6+eAkX6SWQi2WmSrfCXh2A8yfeQJZEVlKN2FP8GMT46q70IFVHIQQlNZnzhdDLP5eqhLkSHHp45+DFltcX47nW8eh+yX9sbO/eQCbckG2K6pZo7dAGe94izQGa8phfhyRnI5bBIOkEUCZUl4fcNLXzjYxyJ84icJU/hPRmvO4iODNxClj4IxOAE3Y8U4XZOCQFs3BABGI8gRl/r6U3rei0Irl3qvDQzPmozHA5YV0cx/m4LSKIzlzYa+spgLwzxTpXTXSG+JXjAPCb5kYVH9zW3h3zcrKN9oGBB7WbmZ0POAgccE91ruWNZsF8lSVfM9cVEwzKsRmSZevHtJMDyGj\
+        \ net-fun-bootcamp-ppk\n"
+      Tags: []
+  EC2NetworkAcl:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkAcl"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC"
+      Tags: []
+  EC2SubnetOp:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPCTd"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az2"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.16.0/20"
+      Ipv6Native: false
+      Tags: []
